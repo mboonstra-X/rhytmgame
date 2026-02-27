@@ -1,16 +1,23 @@
+using System.Collections;
 using UnityEngine;
 
 public class BeatSpawner : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public GameObject beat;
+
     void Start()
     {
-        
+        StartCoroutine(StartSpawn());
     }
 
-    // Update is called once per frame
-    void Update()
+    public IEnumerator StartSpawn()
     {
-        
+        while (true)
+        {
+            GameObject newbeat = Instantiate(beat);
+            newbeat.transform.position = new Vector2(Random.value * 20 - 10, Random.value * 10 - 5);
+            Destroy(newbeat, 1.5f);
+            yield return new WaitForSeconds(1);
+        }
     }
 }
